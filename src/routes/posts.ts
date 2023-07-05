@@ -18,7 +18,7 @@ router.get('/:userId', async (req: Request, res: Response) => {
     if (Object.keys(response).length !== Object.keys(userPosts).length) {
       let data = '';
 
-      response.on('data', (chunk: { userId: string }) => {
+      response.on('data', (chunk) => {
         data += chunk;
       });
 
