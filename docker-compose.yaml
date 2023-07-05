@@ -1,0 +1,33 @@
+networks:
+  app-network-test:
+    driver: bridge
+
+services:
+  app:
+    build: .
+    container_name: test
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/app/src
+    networks:
+      - app-network-test
+    depends_on:
+      - mysql
+  mysql:
+    image: mysql:5.7.42
+    restart: unless-stopped
+    tty: true
+    ports:
+      - '3306:3306'
+    environment:
+      MYSQL_DATABASE: test
+      MYSQL_USER: test
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: password
+    networks:
+      - app-network-test
+
+volumes:
+  gp-db:
+    driver: local
